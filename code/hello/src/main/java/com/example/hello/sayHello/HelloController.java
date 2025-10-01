@@ -1,23 +1,21 @@
-package main.java.com.example.hello.sayHello;
+package com.example.hello_api;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import java.util.Map;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @RestController
-public class HelloController {
+public class SimpleController {
 
-    @GetMapping("/hello")
-    public HelloResponse hello() {
-        ZonedDateTime nowKst = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
-        return new HelloResponse(
-                nowKst.toString(),            
-                System.currentTimeMillis(),  
-                "Hello, World!"
-        );
-    }
+        @GetMapping("/hello")
+        public Map<String, Object> sayHello(){
 
-    public record HelloResponse(String koreaTime, long timestamp, String message) {}
-}
+                return Map.of(
+                                "message", "Hello, World!",
+                                "timestamp", System.currentTimeMillis(),
+                                "koreaTime", ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toString()
+                             );
+        }
+}  
